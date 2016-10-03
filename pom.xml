@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dataflowdeveloper</groupId>
-	<artifactId>phoenix</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>dronemap</artifactId>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>phoenix</name>
-	<description>Apache Hbase Phoenix Spring Boot</description>
+	<name>dronemap</name>
+	<description>Apache Hbase Phoenix Spring Boot dronemap</description>
 
 <parent>
     <groupId>org.springframework.boot</groupId>
@@ -31,7 +31,7 @@
    <dependency>
     <groupId>org.apache.phoenix</groupId>
     <artifactId>phoenix-core</artifactId>
-<version>4.4.0-HBase-1.0</version>
+	<version>4.7.0-HBase-1.1</version>
                <exclusions>
                                 <exclusion>
                                         <artifactId>slf4j-log4j12</artifactId>
@@ -60,7 +60,6 @@
                 <dependency>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-starter-web</artifactId>
-<version>1.4.0.RELEASE</version>
                         <exclusions>
                          <exclusion>
                                         <artifactId>servlet-api</artifactId>
@@ -89,7 +88,6 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-starter-jetty</artifactId>
                         <scope>provided</scope>
-<version>1.4.0.RELEASE</version>
                         <exclusions>
                                 <exclusion>
                                         <groupId>org.slf4j</groupId>
@@ -139,7 +137,6 @@
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
-    <version>2.7.4</version>
     <exclusions>
         <exclusion>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -154,17 +151,15 @@
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-core</artifactId>
-    <version>2.7.4</version>
 </dependency>
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-annotations</artifactId>
-    <version>2.7.4</version>
 </dependency>
           <dependency>
                         <groupId>org.springframework.data</groupId>
                         <artifactId>spring-data-jdbc-core</artifactId>
-<version>1.2.1.RELEASE</version>
+						<version>1.2.1.RELEASE</version>
           <exclusions>
                                 <exclusion>
                                         <artifactId>slf4j-log4j12</artifactId>

@@ -32,7 +32,7 @@ public class DataController {
 	     HttpServletRequest servletRequest = ((ServletRequestAttributes) requestAttributes).getRequest();
 	     Assert.state(servletRequest != null, "Could not find current HttpServletRequest");
 	     return servletRequest;
-	 }
+	 }    
 	
 	Logger logger = LoggerFactory.getLogger(DataController.class);
 
@@ -57,10 +57,10 @@ public class DataController {
     }
     
     @RequestMapping("/query/{query}")
-    public List<PhillyCrime> query(
+    public List<DroneData> query(
     		@PathVariable(value="query") String query) 
     {
-    	List<PhillyCrime> value = dataSourceService.search(query);
+    	List<DroneData> value = dataSourceService.search(null); //query);
     	final String userIpAddress = getCurrentRequest().getRemoteAddr();
     	final String userAgent = getCurrentRequest().getHeader("user-agent");
     	final String userDisplay = String.format("Query:%s,IP:%s Browser:%s", query, userIpAddress, userAgent);
