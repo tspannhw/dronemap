@@ -29,6 +29,116 @@ public class DataSourceService {
 	@Value("${querylimit}")
 	private String querylimit;
 
+	private static String STATIC_HEADER="<html>\n<head>\n<title>Drone</title>\n</head>\n<body>\n";
+	private static String STATIC_FOOTER="\n</body>\n</html>\n";
+	
+	/**
+	 * html page
+	 * @param tweetid
+	 * @return String
+	 */
+	public String getDroneImages() {
+		StringBuilder out = new StringBuilder(4096);		
+		String sql = "";
+		try {
+			if ( connection == null) { 
+				logger.error("Null connection");
+				return STATIC_HEADER + "No data" + STATIC_FOOTER;
+			}
+            sql = "select datekey, fileName, gPSAltitude, gPSLatitude, gPSLongitude, orientation,geolat,geolong,inception from dronedata1 order by datekey asc";
+            out.append(STATIC_HEADER);
+			PreparedStatement ps = connection
+					.prepareStatement(sql);
+			ResultSet res = ps.executeQuery();
+			while (res.next()) {
+				try {
+					out.append("<br><br>\n<table width=100%><tr><td valign=top><img src=\"");
+					out.append("http://tspanndev10.field.hortonworks.com:50070/webhdfs/v1/drone/").append(res.getString("fileName")).append("?op=OPEN\"></td>");
+					out.append("<td valign=top>Date: ").append(res.getString("datekey"));
+					out.append("\n<br>Lat: ").append(res.getString("geolat"));
+					out.append("\n<br>Long: ").append(res.getString("geolong"));
+					out.append("\n<br>Altitude: ").append(res.getString("gPSAltitude"));
+					out.append("\n<br>Lat: ").append(res.getString("gPSLatitude"));
+					out.append("\n<br>Long: ").append(res.getString("gPSLongitude"));
+					out.append("\n<br>Inception: ").append(res.getString("inception"));
+					out.append("\n<br>Orientation: ").append(res.getString("orientation"));
+//					out.append("\n<br>Sentiment:").append(res.getString("sentiment"));
+//					out.append("\n<br>Simple Sentiment:").append(res.getString("stanfordsentiment"));
+					out.append("\n<br><br>\n</td></tr></table>\n");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			res.close();
+			ps.close();
+			connection.close();
+			res = null;
+			ps = null;
+			connection = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Error in search", e);
+		}
+		
+		out.append(STATIC_FOOTER);
+		return out.toString();
+	}
+	
+	/**
+	 * html page
+	 * @param tweetid
+	 * @return String
+	 */
+	public String getDroneImage(String fileName) {
+		StringBuilder out = new StringBuilder(256);		
+		String sql = "";
+		try {
+			if ( connection == null || fileName == null) { 
+				logger.error("Null connection");
+				return STATIC_HEADER + "No data" + STATIC_FOOTER;
+			}
+            sql = "select datekey, fileName, gPSAltitude, gPSLatitude, gPSLongitude, orientation,geolat,geolong,inception from dronedata1 where fileName=?";
+            out.append(STATIC_HEADER);
+			PreparedStatement ps = connection
+					.prepareStatement(sql);
+			ps.setString(1, fileName);
+			ResultSet res = ps.executeQuery();
+			if (res.next()) {
+				try {
+					out.append("<br><br>\n<table width=100%><tr><td valign=top><img src=\"");
+					out.append("http://tspanndev10.field.hortonworks.com:50070/webhdfs/v1/drone/").append(res.getString("fileName")).append("?op=OPEN\"></td>");
+					out.append("<td valign=top>Date: ").append(res.getString("datekey"));
+					out.append("\n<br>Lat: ").append(res.getString("geolat"));
+					out.append("\n<br>Long: ").append(res.getString("geolong"));
+					out.append("\n<br>Altitude: ").append(res.getString("gPSAltitude"));
+					out.append("\n<br>Lat: ").append(res.getString("gPSLatitude"));
+					out.append("\n<br>Long: ").append(res.getString("gPSLongitude"));
+					out.append("\n<br>Inception: ").append(res.getString("inception"));
+					out.append("\n<br>Orientation: ").append(res.getString("orientation"));
+//					out.append("\n<br>Sentiment:").append(res.getString("sentiment"));
+//					out.append("\n<br>Simple Sentiment:").append(res.getString("stanfordsentiment"));
+					out.append("\n<br><br>\n</td></tr></table>\n");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			res.close();
+			ps.close();
+			connection.close();
+			res = null;
+			ps = null;
+			connection = null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("Error in search", e);
+		}
+		
+		out.append(STATIC_FOOTER);
+		return out.toString();
+	}
+	
 	/**
 	 * 
 	 * @param query

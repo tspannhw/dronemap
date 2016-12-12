@@ -67,4 +67,29 @@ public class DataController {
     	logger.error(userDisplay);
         return value;
     }
+
+    @RequestMapping("/dronelist")
+    public String dronelist() 
+    {
+    	String value = dataSourceService.getDroneImages(); 
+    	final String userIpAddress = getCurrentRequest().getRemoteAddr();
+    	final String userAgent = getCurrentRequest().getHeader("user-agent");
+    	final String userDisplay = String.format("IP:%s Browser:%s", userIpAddress, userAgent);
+    	logger.error(userDisplay);
+        return value;
+    }
+    
+    @RequestMapping("/html/{fileName}")
+    public String html(
+    		@PathVariable(value="fileName") String fileName) 
+    {
+    	String value = dataSourceService.getDroneImage(fileName); 
+    	final String userIpAddress = getCurrentRequest().getRemoteAddr();
+    	final String userAgent = getCurrentRequest().getHeader("user-agent");
+    	final String userDisplay = String.format("FileName:%s,IP:%s Browser:%s", fileName, userIpAddress, userAgent);
+    	logger.error(userDisplay);
+        return value;
+    }
+    
+    
 }
