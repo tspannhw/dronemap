@@ -14,8 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.social.twitter.api.Twitter;
-import org.springframework.social.twitter.api.impl.TwitterTemplate;
 
 @Configuration
 @ComponentScan
@@ -23,6 +21,10 @@ import org.springframework.social.twitter.api.impl.TwitterTemplate;
 @SpringBootApplication
 public class HBaseApplication {
 
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(HBaseApplication.class, args);
 	}
@@ -31,31 +33,6 @@ public class HBaseApplication {
 	@Profile("default")
 	static class LocalConfiguration {
 		Logger logger = LoggerFactory.getLogger(LocalConfiguration.class);
-
-	    @Value("${consumerkey}")
-	    private String consumerKey;
-
-	    @Value("${consumersecret}")
-	    private String consumerSecret;
-	    
-	    @Value("${accesstoken}")
-	    private String accessToken;
-	    
-	    @Value("${accesstokensecret}")
-	    private String accessTokenSecret;
-	    	
-		@Bean
-		public Twitter twitter() {
-			Twitter twitter = null;
-			
-			try {
-				twitter = new TwitterTemplate(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-			} catch (Exception e) {
-				logger.error("Error:", e);
-			}
-			
-			return twitter;
-		}
 
 	    @Value("${purl}")
 	    private String databaseUri;

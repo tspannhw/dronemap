@@ -2,6 +2,11 @@ package com.dataflowdeveloper;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author tspann
+ *
+ */
 public class DroneData implements Serializable{
 
 	private static final long serialVersionUID = 5457110266746842302L;

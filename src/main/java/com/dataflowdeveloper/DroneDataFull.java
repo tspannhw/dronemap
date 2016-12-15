@@ -5,6 +5,11 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 
+ * @author tspann
+ *
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DroneDataFull implements Serializable {
 

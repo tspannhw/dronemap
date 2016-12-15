@@ -16,5 +16,4 @@ public class HBaseApplicationTests {
 	public void contextLoads() {
 		logger.error("Started");
 	}
-
 }
